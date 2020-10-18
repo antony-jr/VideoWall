@@ -14,11 +14,10 @@ ColumnLayout {
 	
 	FileDialog {
 		id: fileDialog
-		title: "Pick a video file"
+		title: "Pick a Video/Image file"
 		nameFilters: [
 			"Video Files (*.mp4 *.ogv *.ogg *.avi *.mpg *.mpeg *.wmv *.mov *.webm *.flv *.mkv *.matroska)",
-			"Image Files (*.png *.jpeg *.jpg)",	
-			"All Files (*)"
+			"Image Files (*.png *.jpeg *.jpg)"
 		]
 		onAccepted: {
 			cfg_VideoOrImage = fileDialog.fileUrls[0]
@@ -74,7 +73,7 @@ ColumnLayout {
 			QtControls2.Label {
 				width: formAlignment - units.largeSpacing
 				horizontalAlignment: Text.AlignRight
-				text: i18n("Playback Rate(Used for Videos only):")
+				text: i18n("Playback Rate:")
 			}
 			QtControls.Slider {
 				value: cfg_Rate
@@ -97,7 +96,7 @@ ColumnLayout {
 			QtControls2.Label {
 				width: formAlignment - units.largeSpacing
 				horizontalAlignment: Text.AlignRight
-				text: i18n("Volume(Used for Videos only):")
+				text: i18n("Volume:")
 			}
 			QtControls.Slider {
 				value: cfg_Volume
@@ -114,8 +113,6 @@ ColumnLayout {
 				text: i18n(Number(cfg_Volume).toLocaleString(Qt.locale(), "f", 2))
 			}
 		}
-
-
 	}
 
 }

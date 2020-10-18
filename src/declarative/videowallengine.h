@@ -9,17 +9,30 @@
 class VideoWallEngine : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QUrl defaultWallpaperUrl READ defaultWallpaperUrl WRITE setDefaultWallpaperUrl NOTIFY defaultWallpaperChanged)
+    Q_PROPERTY(QUrl defaultWallpaperUrl READ defaultWallpaperUrl WRITE setDefaultWallpaperUrl NOTIFY update)
+    Q_PROPERTY(int fillMode READ fillMode WRITE setFillMode NOTIFY update)
+    Q_PROPERTY(double playbackRate READ playbackRate WRITE setPlaybackRate NOTIFY update)
+    Q_PROPERTY(double volume READ volume WRITE setVolume NOTIFY update)
+
     Q_PROPERTY(NOTIFY play
-	       NOTIFY stop
-	       NOTIFY defaultWallpaperChanged)
+	       NOTIFY stop)
 public:
     explicit VideoWallEngine(QObject *parent = nullptr);
     ~VideoWallEngine() override;
-
-    //// This will act as some sort of init.
+    	
     void setDefaultWallpaperUrl(const QUrl&);
     QUrl defaultWallpaperUrl() const;
+
+    void setFillMode(int);
+    int fillMode() const;
+
+    void setPlaybackRate(double);
+    double playbackRate() const;
+
+    void setVolume(double);
+    double volume() const;
+
+    Q_INVOKABLE void requestUpdate(); 
 
 private slots:
     void handleNewConnection();
@@ -28,8 +41,11 @@ private slots:
 signals:
     void play(QUrl videoFile);
     void stop();
-    void defaultWallpaperChanged(/*is video wallpaper=*/bool isVideoWallPaper);
+    void update(bool isVideoWallPaper);
 private:
+    int n_fillMode;
+    double n_rate, n_volume;
+    bool b_VideoWallpaper;
     QUrl m_defaultWallpaperUrl;
     QLocalServer m_localServer;
 };
