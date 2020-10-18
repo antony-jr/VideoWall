@@ -1,7 +1,10 @@
-#pragma once
+#ifndef VIDEO_WALL_ENGINE_H_INCLUDED
+#define VIDEO_WALL_ENGINE_H_INCLUDED 
 #include <QObject>
 #include <QUrl>
-
+#include <QLocalSocket>
+#include <QLocalServer>
+#include <QStandardPaths>
 
 class VideoWallEngine : public QObject
 {
@@ -18,10 +21,16 @@ public:
     void setDefaultWallpaperUrl(const QUrl&);
     QUrl defaultWallpaperUrl() const;
 
+private slots:
+    void handleNewConnection();
+    void handleReadyRead();
+
 signals:
     void play(QUrl videoFile);
     void stop();
     void defaultWallpaperChanged(/*is video wallpaper=*/bool isVideoWallPaper);
 private:
     QUrl m_defaultWallpaperUrl;
+    QLocalServer m_localServer;
 };
+#endif /// VIDEO_WALL_ENGINE_H_INCLUDED

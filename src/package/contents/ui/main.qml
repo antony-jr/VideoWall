@@ -52,8 +52,9 @@ Item {
 		id: videowall_engine
 		defaultWallpaperUrl: wallpaper.configuration.VideoOrImage
 		onDefaultWallpaperChanged: {
+			mediaplayer.stop();
 			if(isVideoWallPaper) {
-				default_image_output.visible = true; 	
+				default_image_output.visible = false; 	
 				mediaplayer.loops = MediaPlayer.Infinite;
 				mediaplayer.source = wallpaper.configuration.VideoOrImage;
 				default_video_output.visible = true;	
