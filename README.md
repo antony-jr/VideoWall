@@ -1,5 +1,7 @@
 # Videowall [![GitHub issues](https://img.shields.io/github/issues/antony-jr/VideoWall.svg?style=for-the-badge)](https://github.com/antony-jr/VideoWall/issues) [![GitHub forks](https://img.shields.io/github/forks/antony-jr/VideoWall.svg?style=for-the-badge)](https://github.com/antony-jr/VideoWall/network) [![GitHub stars](https://img.shields.io/github/stars/antony-jr/VideoWall.svg?style=for-the-badge)](https://github.com/antony-jr/VideoWall/stargazers) [![GitHub license](https://img.shields.io/github/license/antony-jr/VideoWall.svg?style=social)](https://github.com/antony-jr/VideoWall/blob/master/LICENSE)
 
+### IMPORTANT: The new VideoWall is made into a Plasma Wallpaper, you need to compile that and install into your system which also requires a lot of KDE Frameworks dependencies. Please see plasma-wallpaper branch for that source code. But the new version allows to display the plasma widgets when running the video wallpaper and will be much more natural for KDE Plasma.
+
 Videowall is a very small bash script for invoking VLC Media Player hidden in Video Wallpaper mode.
 
 **Depends on:** VLC Media Player , **Linux** , **KDE Plasma ( For Best Results )**
