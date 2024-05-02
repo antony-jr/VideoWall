@@ -22,7 +22,7 @@ WallpaperItem {
         id: mediaplayer
 
         visible: false
-        loops: MediaPlayer.Infinite
+        loops: 0
         fillMode: {
             if (wallpaper.configuration.Fill == 0)
                 return VideoOutput.Stretch;
