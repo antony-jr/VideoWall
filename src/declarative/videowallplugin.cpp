@@ -1,4 +1,5 @@
 #include <QQmlEngine>
+#include <QDebug>
 
 #include "videowallplugin.h"
 #include "videowallengine.h"

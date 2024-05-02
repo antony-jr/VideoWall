@@ -1,0 +1,27 @@
+{
+   "KPackageStructure" : "Plasma/Wallpaper",
+   "KPlugin" : {
+      "Authors" : [
+         {
+            "Email" : "contact@antonyjr.in",
+            "Name" : "D. Antony J.R"
+         }
+      ],
+      "BugReportUrl" : "https://github.com/antony-jr/VideoWall",
+      "Category" : "",
+      "Description" : "VideoWall, Regular Image/Video Wallpaper but can play videos on the fly using CLI",
+      "Icon" : "preferences-desktop-wallpaper",
+      "Id" : "com.github.antony-jr.VideoWall",
+      "License" : "MIT",
+      "Name" : "VideoWall",
+      "Version" : "0.3.0",
+      "Website" : "https://antonyjr.in"
+   },
+   "Keywords" : [
+      "video",
+      "wallpaper"
+   ],
+   "X-KDE-ParentApp" : "org.kde.plasmashell",
+   "X-Plasma-API-Minimum-Version" : "6.0"
+}
+

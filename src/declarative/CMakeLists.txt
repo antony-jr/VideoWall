@@ -3,17 +3,14 @@ set(videowallplugin_SOURCES
     videowallengine.cpp
 )
 
-add_library(plasma_videowall_plugin ${videowallplugin_SOURCES})
+add_library(plasma_videowall_plugin SHARED ${videowallplugin_SOURCES})
 
-target_link_libraries(plasma_videowall_plugin
-    Qt5::Concurrent
-    Qt5::Core
-    Qt5::Gui
-    Qt5::Qml
-    Qt5::Quick
-
-    KF5::ConfigCore
-    KF5::Package
+target_link_libraries(plasma_videowall_plugin PRIVATE
+    Qt6::Core
+    Qt6::Gui
+    Qt6::Qml
+    Qt6::Quick
+    Plasma
 )
 
 install(TARGETS plasma_videowall_plugin DESTINATION ${KDE_INSTALL_QMLDIR}/com/github/antonyjr/plasma/wallpapers/VideoWall)
