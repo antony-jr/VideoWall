@@ -6,11 +6,8 @@ import org.kde.plasma.plasmoid
 WallpaperItem {
     id: root
 
-    property bool avoidUpdate: false // When the MediaPlayer stops don't call update.
-
     function resetAll() {
         mediaplayer.loops = 0;
-        mediaplayer.source = "";
         default_image_output.visible = false;
         mediaplayer.visible = false;
         mediaplayer.volume = 1;
@@ -22,6 +19,7 @@ WallpaperItem {
         id: mediaplayer
 
         visible: false
+        autoPlay: false
         loops: 0
         fillMode: {
             if (wallpaper.configuration.Fill == 0)
@@ -35,10 +33,25 @@ WallpaperItem {
         anchors.fill: parent
         muted: false
         volume: 1
-        onStopped: {
-            if (!root.avoidUpdate)
-                videowall_engine.requestUpdate();
+    }
 
+    Timer {
+        id: playtimer
+
+        interval: 500
+        running: false
+        repeat: true
+        onTriggered: function() {
+            if (mediaplayer.source != wallpaper.configuration.VideoOrImage) {
+                if (mediaplayer.playbackState == MediaPlayer.PlayingState) {
+                    const diff = mediaplayer.duration - mediaplayer.position;
+                    if (diff < 700 || diff == 0) {
+                        playtimer.stop();
+                        mediaplayer.stop();
+                        videowall_engine.requestUpdate();
+                    }
+                }
+            }
         }
     }
 
@@ -66,9 +79,6 @@ WallpaperItem {
         playbackRate: wallpaper.configuration.Rate
         volume: wallpaper.configuration.Volume
         onUpdate: function(isVideoWallPaper) {
-            root.avoidUpdate = true;
-            mediaplayer.stop();
-            root.avoidUpdate = false;
             resetAll();
             if (isVideoWallPaper) {
                 mediaplayer.visible = true;
@@ -77,25 +87,25 @@ WallpaperItem {
                 mediaplayer.volume = wallpaper.configuration.Volume;
                 mediaplayer.muted = wallpaper.configuration.Volume == 0;
                 mediaplayer.playbackRate = wallpaper.configuration.Rate;
+                mediaplayer.source = wallpaper.configuration.VideoOrImage;
                 mediaplayer.play();
+                mediaplayer.visible = true;
             } else {
                 default_image_output.source = wallpaper.configuration.VideoOrImage;
                 default_image_output.visible = true;
             }
         }
         onPlay: function(videoFile) {
-            root.avoidUpdate = true;
-            mediaplayer.stop();
-            root.avoidUpdate = false;
             resetAll();
-            console.log(videoFile);
             mediaplayer.source = videoFile;
             mediaplayer.play();
             mediaplayer.visible = true;
+            playtimer.start();
         }
-        onStop: {
-            root.avoidUpdate = false;
+        onStop: function() {
+            playtimer.stop();
             mediaplayer.stop();
+            videowall_engine.requestUpdate();
         }
     }
 
